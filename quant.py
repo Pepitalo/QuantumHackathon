@@ -54,6 +54,33 @@ qc = QuantumCircuit(20)
 
 #Q3 : Random state preparation
 
+from qiskit import QuantumCircuit
+import numpy as np
+
+# YOUR CODE HERE
+qc = QuantumCircuit(2)
+qc.rx(lam * 2 * 71 *np.pi, 0)
+qc.rz(lam * 2 * 143 *np.pi, 1)
+qc.cx(0,1)
+qc.ry(lam * 2 * (78963986129873600283%17) *np.pi, 0)
+qc.rx(lam * 2 * (7629863912983710296496982198730192783897%172) *np.pi, 1)
+qc.cx(1,0)
+qc.rx(lam * 2 * 77398291 *np.pi, 1)
+qc.rz(lam * 2 * 1409182033 *np.pi, 0)
+qc.cx(0,1)
+qc.ry(lam * 2 * (7896398612987363123800283%13) *np.pi, 1)
+qc.rx(lam * 2 * (762986391298371923910923090296496982198730192783897%131) *np.pi, 0)
+qc.cx(1,0)
+qc.rx(lam * 2 * 1298371 *np.pi, 0)
+qc.rz(lam * 2 * 1412933 *np.pi, 1)
+qc.cx(0,1)
+qc.ry(lam * 2 * (78912368712663986129873600283%17) *np.pi, 0)
+qc.rx(lam * 2 * (76298639982137961239091283129837102964969821987301981927838992639877%312) *np.pi, 1)
+qc.cx(1,0)
+qc.draw("mpl")
+
+# Resultat de ce test est 0.018, amélioration possible : on tourne d'un nombre irrationel pour être sur que ca soit le chaos.
+
 #Q4 : Send the lazy bit
 
 #Q5 : Order, Order
