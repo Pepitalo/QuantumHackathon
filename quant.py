@@ -47,3 +47,19 @@ from qiskit import QuantumCircuit
 
 qc = QuantumCircuit(20)
 # YOUR CODE HERE
+
+
+
+#Q2 : State preparation
+
+#Q3 : Random state preparation
+
+#Q4 : Send the lazy bit
+
+#Q5 : Order, Order
+
+#Q6 : Ansatz Design
+
+#Q7 : A metrology question
+
+#Q8 : Which state did I send
