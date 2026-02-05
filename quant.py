@@ -5,6 +5,8 @@
 
 from qiskit.providers.fake_provider import GenericBackendV2
 from qiskit.visualization import plot_gate_map
+from qiskit import QuantumCircuit
+import numpy as np
 
 coupling_map = [
     (0, 1),
@@ -42,20 +44,38 @@ backend = GenericBackendV2(
 )
 plot_gate_map(backend)
 
-# SUBMISSION CELL
-from qiskit import QuantumCircuit
-
 qc = QuantumCircuit(20)
+qc.h(0)
+qc.cx(0,1)
+qc.swap(1, 4)
+qc.swap(4, 5)
+qc.swap(5,7)
+qc.swap(7,10)
+qc.swap(10,11)
+qc.swap(11,13)
+qc.swap(13,16)
+qc.swap(16,17)
+qc.swap(17,19)
+qc.draw()
 # YOUR CODE HERE
 
 
 
 #Q2 : State preparation
 
-#Q3 : Random state preparation
+# Note: you can change the number of qubits, but don't change the name of the quantum circuit
+qc = QuantumCircuit(5)
+qc.u(np.pi/2, 0, np.pi, 0)
+qc.u(np.pi/2, 0, np.pi, 1)
+qc.u(np.pi/2, 0, np.pi, 2)
+qc.cx(0,4)
+qc.cx(1,4)
+qc.cx(2,4)
+qc.cx(0,3)
+print(qc.depth())
+qc.draw()
 
-from qiskit import QuantumCircuit
-import numpy as np
+#Q3 : Random state preparation
 
 # YOUR CODE HERE
 qc = QuantumCircuit(2)
@@ -78,8 +98,34 @@ qc.ry(lam * 2 * (78912368712663986129873600283%17) *np.pi, 0)
 qc.rx(lam * 2 * (76298639982137961239091283129837102964969821987301981927838992639877%312) *np.pi, 1)
 qc.cx(1,0)
 qc.draw("mpl")
+# Resultat de ce test est 0.018, amélioration possible : on intrique selon plus que cx, mais ausi cy et cz :
 
-# Resultat de ce test est 0.018, amélioration possible : on tourne d'un nombre irrationel pour être sur que ca soit le chaos.
+def intritri(x):
+	qc.cx(1-x,x)
+	qc.cy(1-x,x)
+	qc.cz(1-x,x)
+
+# YOUR CODE HERE
+qc = QuantumCircuit(2)
+qc.rx(lam * 2 * 71 *np.pi, 0)
+qc.rz(lam * 2 * 143 *np.pi, 1)
+intritri(1)
+qc.ry(lam * 2 * (78963986129873600283%17) *np.pi, 0)
+qc.rx(lam * 2 * (7629863912983710296496982198730192783897%172) *np.pi, 1)
+intritri(0)
+qc.rx(lam * 2 * 77398291 *np.pi, 1)
+qc.rz(lam * 2 * 1409182033 *np.pi, 0)
+intritri(1)
+qc.ry(lam * 2 * (7896398612987363123800283%13) *np.pi, 1)
+qc.rx(lam * 2 * (762986391298371923910923090296496982198730192783897%131) *np.pi, 0)
+intritri(0)
+qc.rx(lam * 2 * 1298371 *np.pi, 0)
+qc.rz(lam * 2 * 1412933 *np.pi, 1)
+intritri(1)
+qc.ry(lam * 2 * (78912368712663986129873600283%17) *np.pi, 0)
+qc.rx(lam * 2 * (76298639982137961239091283129837102964969821987301981927838992639877%312) *np.pi, 1)
+intritri(0)
+qc.draw("mpl")
 
 #Q4 : Send the lazy bit
 
