@@ -99,6 +99,8 @@ qc.rx(lam * 2 * (762986399821379612390912831298371029649698219873019819278389926
 qc.cx(1,0)
 qc.draw("mpl")
 # Resultat de ce test est 0.018, amélioration possible : on intrique selon plus que cx, mais ausi cy et cz
+
+"""
 # Essai en tourant selon les 3 axes via une U gate, on garde le même nombre de gate du coup donc peut etre mieux
 qc = QuantumCircuit(2)
 qc.u(lam * 2 * 71 *np.pi,lam * 2 * 71 *np.pi,lam * 2 * 71 *np.pi, 0)
@@ -120,8 +122,79 @@ qc.u(lam * 2 * (78912368712663986129873600283%17) *np.pi,lam * 2 * (789123687126
 qc.u(lam * 2 * (76298639982137961239091283129837102964969821987301981927838992639877%312) *np.pi,lam * 2 * (76298639982137961239091283129837102964969821987301981927838992639877%312) *np.pi,lam * 2 * (76298639982137961239091283129837102964969821987301981927838992639877%312) *np.pi, 1)
 qc.cx(1,0)
 qc.draw("mpl")
+#Score de cet essai à 0.023 c'est moins bien.
+"""
+from qiskit import QuantumCircuit
+import numpy as np
 
+def frac_claque(x):
+    return(np.acos(np.cos(x))/np.pi)
+
+def alpha(x):
+    return((1/2)*np.asin((frac_claque(x))**(0.5)))
+def a(x):
+    return(2*np.pi*frac_claque(np.sqrt(188609)*x))
+def b(x):
+    return(np.acos(1- 2 * frac_claque(np.sqrt(188711)*x)))
+def c(x):
+    return(2*np.pi*frac_claque(np.sqrt(192239)*x))
+def e(x):
+    return(2*np.pi*frac_claque(np.sqrt(192817)*x))
+def f(x):
+    return(np.acos(1- 2 * frac_claque(np.sqrt(192499)*x)))
+def g(x):
+    return(2*np.pi*frac_claque(np.sqrt(191911)*x))
+    
+alpha = alpha(lam)
+a = a(lam)
+b = b(lam)
+c = c(lam)
+e = e(lam)
+f = f(lam)
+g = g(lam)
+qc = QuantumCircuit(2)
+qc.ry(2*alpha,0)
+qc.cx(0,1)
+qc.u(a,b,c,0)
+qc.u(e,f,g,1)
+
+
+qc.draw("mpl")
+
+# On remarque que plus les nombres premiers sont grands, plus le mapping a l'air bien. On essaye avec des nb premiers ignobles. 1er test à 0.224, second à 0.083 3eme à 0.150 ca marche paaas. Nul.
 #Q4 : Send the lazy bit
+rom qiskit import QuantumCircuit
+
+# YOUR CODE HERE
+# Note: you can change the number of qubits, but don't change the name of the quantum circuit
+def F_gate(circ,i,j,n,k) :
+    theta = np.arccos(np.sqrt(1/(n-k+1)))
+    circ.ry(-theta,j)       
+    circ.cz(i,j)
+    circ.ry(theta,j)
+    circ.barrier(i) 
+
+qc = QuantumCircuit(5)
+
+F_gate(qc,3,2,4,1)
+F_gate(qc,2,1,4,2)
+F_gate(qc,1,0,4,3) 
+qc.cx(2,3)
+qc.cx(1,2)
+qc.cx(0,1)
+qc.x(0)
+qc.x(1)
+qc.x(2)
+qc.x(3)
+
+
+# DO NOT MODIFY THE NAME OF THIS FUNCTION
+def interpret_measurement_result_lazy_bit(meas: str) -> int:
+    """ This function takes as input a measurement result and outputs the lazy bit index.
+    """
+    return 0
+
+qc.draw("mpl")
 
 #Q5 : Order, Order
 
